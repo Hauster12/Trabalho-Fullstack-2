@@ -1,0 +1,21 @@
+# Dependências
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Builds
+dist/
+client/dist/
+
+# Logs e variáveis de ambiente
+*.log
+.env
+.env.local
+
+# Banco SQLite local (opcional, manter se quiser versionar seed)
+server/prisma/*.db-journal
+
+# VS Code / IDE
+.vscode/
+.idea/
+.DS_Store

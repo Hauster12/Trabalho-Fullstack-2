@@ -1,0 +1,28 @@
+{
+  "name": "imobi-senac-server",
+  "version": "1.0.0",
+  "description": "Backend Full Stack - ImobiSelect (Trabalho UniSenac)",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma db push",
+    "seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@prisma/client": "^5.10.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.11",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.10.2"
+  }
+}

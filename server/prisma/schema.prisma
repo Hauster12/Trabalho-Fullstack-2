@@ -1,0 +1,85 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Cliente {
+  id        String     @id @default(uuid())
+  nome      String
+  email     String     @unique
+  senha     String
+  telefone  String
+  cidade    String     @default("Pelotas")
+  criadoEm  DateTime   @default(now())
+  propostas Proposta[]
+}
+
+model CodigoVerificacao {
+  id        String   @id @default(uuid())
+  email     String
+  codigo    String
+  expiraEm  DateTime
+  criadoEm  DateTime @default(now())
+}
+
+model Admin {
+  id       String   @id @default(uuid())
+  nome     String
+  email    String   @unique
+  senha    String
+  cargo    String   @default("Corretor Senior")
+  criadoEm DateTime @default(now())
+}
+
+model Imovel {
+  id        String     @id @default(uuid())
+  titulo    String
+  tipo      String
+  preco     Float
+  cidade    String
+  bairro    String
+  endereco  String
+  quartos   Int
+  banheiros Int
+  vagas     Int
+  areaM2    Float
+  fotoUrl   String
+  destaque  Boolean    @default(false)
+  descricao String
+  criadoEm  DateTime   @default(now())
+  propostas Proposta[]
+  visitas   Visita[]
+}
+
+model Visita {
+  id              String   @id @default(uuid())
+  titulo          String
+  clienteNome     String
+  clienteTelefone String?
+  corretor        String   @default("André Santos")
+  imovelId        String?
+  imovel          Imovel?  @relation(fields: [imovelId], references: [id], onDelete: SetNull)
+  inicio          DateTime
+  fim             DateTime
+  status          String   @default("Confirmada")
+  observacoes     String?
+  criadoEm        DateTime @default(now())
+}
+
+model Proposta {
+  id            String    @id @default(uuid())
+  imovelId      String
+  imovel        Imovel    @relation(fields: [imovelId], references: [id], onDelete: Cascade)
+  clienteId     String
+  cliente       Cliente   @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+  valorProposta Float
+  mensagem      String
+  status        String    @default("Pendente")
+  respostaAdmin String?
+  respondidoEm  DateTime?
+  criadoEm      DateTime  @default(now())
+}
